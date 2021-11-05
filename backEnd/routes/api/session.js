@@ -18,10 +18,16 @@ router.post('/', asyncHandler(async(req, res, next) => {
     err.errors = [`The provided credentials were invalid.`];
     return next(err);
   }
-  
+
   await setTokenCookie(res, user);
   return res.json({ user });
   }),
 );
+
+//Log-Out
+router.delete('/', (_req, res) => {
+  res.clearCookie('token');
+  return res.json({ message: 'success' });
+});
 
 module.exports = router;
