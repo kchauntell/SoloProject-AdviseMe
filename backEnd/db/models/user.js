@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const { Validator } = require('sequelize');
 
 'use strict';
 module.exports = (sequelize, DataTypes) => {
