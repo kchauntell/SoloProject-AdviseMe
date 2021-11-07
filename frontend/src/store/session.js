@@ -1,44 +1,66 @@
-import csrfFetch from "./csrf"
+import { csrfFetch } from "./csrf";
 
-const SET_USER = 'session/setUser'
-const REMOVE_USER = 'session/removeUSER'
+const SET_USER = "session/setUser";
+const REMOVE_USER = "session/removeUser";
 
-const setUser = user => {
+const setUser = (user) => {
   return {
     type: SET_USER,
     payload: user,
-  }
-}
+  };
+};
 
 const removeUser = () => {
   return {
     type: REMOVE_USER,
-  }
-}
-
+  };
+};
+//LOGIN
 export const login = (user) => async (dispatch) => {
   const { credential, password } = user;
-  const response = await csrfFetch(`/api/session`, {
-    method: 'POST',
+  const response = await csrfFetch("/api/session", {
+    method: "POST",
     body: JSON.stringify({
       credential,
       password,
     }),
   });
-
-  if(response.ok) {
-    const data = await response.json();
-    dispatch(setUser(data.user));
-    return response;
-  }
+  const data = await response.json();
+  dispatch(setUser(data.user));
+  return response;
 };
-
-export const restoreUser = () => async (dispatch) => {
+//RESTORE USER
+export const restoreUser = () => async dispatch => {
   const response = await csrfFetch('/api/session');
   const data = await response.json();
   dispatch(setUser(data.user));
   return response;
 }
+//SIGNUP
+
+export const signup = (user) => async (dispatch) => {
+  const { username, email, password } = user;
+  const response = await csrfFetch("/api/users", {
+    method: "POST",
+    body: JSON.stringify({
+      username,
+      email,
+      password,
+    }),
+  });
+  const data = await response.json();
+  dispatch(setUser(data.user));
+  return response;
+}
+
+export const logout = () => async (dispatch) => {
+  const response = await csrfFetch('/api/session', {
+    method: 'DELETE',
+  });
+  dispatch(removeUser());
+  return response;
+}
+//REDUCER
 const initialState = { user: null };
 
 const sessionReducer = (state = initialState, action) => {
@@ -55,6 +77,7 @@ const sessionReducer = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};
+
 
 export default sessionReducer;
