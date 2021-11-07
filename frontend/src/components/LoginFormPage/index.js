@@ -44,7 +44,7 @@ function LoginFormPage() {
       </div>
       <div id='Password'>
         <label>
-          Password: 
+          Password:
           <input
             id='passInput'
             type="password"
