@@ -1,0 +1,26 @@
+* {
+  background-color: black;
+}
+
+#Password {
+  padding: 10px;
+  color: white;
+}
+
+#UserName-or-Email {
+  padding: 10px;
+  color: white;
+}
+
+#loginButton {
+  color: white;
+  padding: 5px
+}
+
+#passInput {
+  background-color: white;
+}
+
+#usernameoremail {
+  background-color: white;
+}
