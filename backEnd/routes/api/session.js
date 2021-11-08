@@ -11,7 +11,6 @@ const router = express.Router();
 //Restore session user
 router.get('/', restoreUser, (req, res) => {
   const { user } = req;
-  console.log(user)
 
   if(user) {
     return res.json({

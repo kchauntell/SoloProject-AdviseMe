@@ -4,6 +4,8 @@ const apiRouter = require("./api");
 
 router.use("/api", apiRouter);
 
+//Static Routes
+//Serve React build files in production
 if (process.env.NODE_ENV === "production") {
   const path = require("path");
   // Serve the frontend's index.html file at the root route
@@ -26,6 +28,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+//Add a XSRF-TOKEN cookie in development
 if (process.env.NODE_ENV !== "production") {
   router.get("/api/csrf/restore", (req, res) => {
     res.cookie("XSRF-TOKEN", req.csrfToken());
