@@ -1,14 +1,33 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Notebook = sequelize.define('Notebook', {
-    title: DataTypes.STRING,
-    genre: DataTypes.STRING,
-    private: DataTypes.BOOLEAN,
-    notesId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        len: [4, 50]
+      }
+    },
+    genre: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [4, 50]
+      }
+    },
+    private: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
   }, {});
   Notebook.associate = function(models) {
-    // associations can be defined here
+    Notebook.belongsTo(models.User,{foreignKey: 'userId'});
+    Notebook.hasMany(models.Note, {foreignKey: 'noteBookId'})
   };
   return Notebook;
 };
