@@ -18,7 +18,6 @@ module.exports = {
       notesId: 4,
     },
   ], {});
-
   },
 
   down: (queryInterface, Sequelize) => {
