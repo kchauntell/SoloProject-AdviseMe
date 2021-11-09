@@ -14,7 +14,7 @@ module.exports = {
       },
       title: {
         allowNull: false,
-        type: Sequelize.String(255)
+        type: Sequelize.STRING(255)
       },
       private: {
         allowNull: false,

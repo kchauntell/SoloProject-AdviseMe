@@ -9,6 +9,8 @@ module.exports = {
       private: false,
       userId: 1,
       notesId: 2,
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       id: 2,
@@ -16,6 +18,8 @@ module.exports = {
       private: false,
       userId: 2,
       notesId: 4,
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
   ], {});
   },

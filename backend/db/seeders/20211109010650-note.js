@@ -9,7 +9,9 @@ module.exports = {
         title: 'Part 1: Beginning to Listen',
         private: true,
         userId: 1,
-        noteBookId: 1
+        noteBookId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         id: 2,
@@ -17,7 +19,9 @@ module.exports = {
         title: 'I call BETRAYAL!',
         private: false,
         userId: 1,
-        noteBookId: 2
+        noteBookId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         id: 3,
@@ -25,7 +29,9 @@ module.exports = {
         title: `How to handle an unruly boss`,
         private: true,
         userId: 2,
-        noteBookId: 3
+        noteBookId: 3,
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         id: 4,
@@ -33,7 +39,9 @@ module.exports = {
         title: `Kappa Alpha PASS-A Semester!`,
         private: false,
         userId: 3,
-        noteBookId: 4
+        noteBookId: 4,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ], {});
   },
