@@ -21,11 +21,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.BOOLEAN
       },
-      notesId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: { model: 'Notes' }
-      },
       userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
