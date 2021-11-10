@@ -19,14 +19,16 @@ export const getNotebook = () => async (dispatch) => {
   }
 }
 
-const initialState = { notebook: null};
+const initialState = {}
 
 const notebookReducer = (state =initialState, action) => {
   switch (action.type) {
     case LOAD: {
       const allNotebooks = {};
       action.notebooks.forEach((notebook) => {
-        allNotebooks[action.notebooks.id] = notebook;
+        // console.log(notebook.id);
+        allNotebooks[notebook.id] = notebook;
+        console.log(notebook);
       });
       return {
         ...allNotebooks,
@@ -34,7 +36,6 @@ const notebookReducer = (state =initialState, action) => {
       }
     }
     default:
-      console.log(state)
       return state;
   }
 }
