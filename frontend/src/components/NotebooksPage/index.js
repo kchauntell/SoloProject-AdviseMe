@@ -28,14 +28,16 @@ function NoteBooksPage() {
       <div> ADVISE WITH CAUTION AND CARE! </div>
       <ul>
         {notebook.map((book)=> {
-          return (
-          <div>
-            <NavLink
-              key='book.id'
-              to={`./notebooks/${book.id}`}>
-            {book.title}
-            </NavLink>
-          </div>)
+          if(book.private === false) {
+            return (
+            <div>
+              <NavLink
+                key='book.id'
+                to={`./notebooks/${book.id}`}>
+              {book.title}
+              </NavLink>
+            </div>)
+          }
         })}
       </ul>
       <div>
