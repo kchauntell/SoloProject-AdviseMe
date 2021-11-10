@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {NavLink, Route, useParams} from 'react-router-dom'
+import {BrowserRouter, NavLink, Route} from 'react-router-dom'
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNotebook } from '../../store/notebook';
@@ -7,23 +7,40 @@ import './NotebooksPage.css';
 
 function NoteBooksPage() {
   const dispatch = useDispatch();
-  const { notebookId } = useParams();
-  // const pokemon = useSelector(state => {
-  //   return state.map(notebookId => state.pokemon[notebookId]);
-  // });
+  const notebook = useSelector(state => {
+    let arrNotebook = Object.entries(state.notebook)
+    let books = arrNotebook.map((obj) => obj[1])
+    return books;
+  });
+
   const [notebooks, setNotebooks] = useState('');
 
   useEffect(() => {
     dispatch(getNotebook());
   }, [dispatch]);
 
-  if(!notebooks)
+  if(!notebook)
+    return null;
+
+
   return (
     <main>
       <div> ADVISE WITH CAUTION AND CARE! </div>
-      <nav>
-
-      </nav>
+      <ul>
+        {notebook.map((book)=> {
+          return (
+          <div>
+            <NavLink
+              key='book.id'
+              to={`./notebooks/${book.id}`}>
+            {book.title}
+            </NavLink>
+          </div>)
+        })}
+      </ul>
+      <div>
+        <button type='submit'>Add Notebook</button>
+      </div>
     </main>
 
   )

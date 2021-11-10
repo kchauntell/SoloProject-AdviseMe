@@ -28,7 +28,7 @@ const notebookReducer = (state =initialState, action) => {
       action.notebooks.forEach((notebook) => {
         // console.log(notebook.id);
         allNotebooks[notebook.id] = notebook;
-        console.log(notebook);
+        // console.log(notebook);
       });
       return {
         ...allNotebooks,
