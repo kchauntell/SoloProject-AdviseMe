@@ -5,7 +5,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import NotebooksPage from './components/NotebooksPage';
 import NoteBooksIDPage from "./components/NoteBooksIDPage";
-import NotesPage from './components/NotesPage';
+import CreateNotePage from './components/CreateNotePage';
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -28,7 +28,7 @@ function App() {
             <NoteBooksIDPage />
           </Route>
           <Route exact path='/notes'>
-            <NotesPage />
+            <CreateNotePage />
           </Route>
           <Route path="/login">
             <LoginFormPage />
