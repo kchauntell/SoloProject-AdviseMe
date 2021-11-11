@@ -28,6 +28,7 @@ function NoteBooksIDPage() {
   if(!notebook)
     return null;
 
+  const notes = notebook.map((book) => book.Notes[0])
 
   return (
     <main>
@@ -42,9 +43,22 @@ function NoteBooksIDPage() {
           {notebook.map((book) => {
             return (
               <div>
-                <NavLink key={book}>
-
-                </NavLink>
+                {
+                  notes.map((note) => {
+                    let noteEntry = note.note
+                    let sampleNote = noteEntry.slice(0, 75) + '...';
+                    if (book.id === note.noteBookId) {
+                      return (
+                        <div>
+                          <li>
+                            <NavLink key={note.id} to={`/notes/${note.id}`}>
+                              {sampleNote}
+                            </NavLink>
+                          </li>
+                        </div>
+                      )}
+                  })
+                }
               </div>
             )
           })}
@@ -56,3 +70,20 @@ function NoteBooksIDPage() {
 }
 
 export default NoteBooksIDPage;
+
+// {
+//   notes.map((note) => {
+//     let noteEntry = note.note
+//     let sampleNote = noteEntry.slice(0, 75) + '...';
+//     if (note.noteBookId === book.id)
+//       return (
+//         <div>
+//           <li>
+//             <NavLink key={note.id} to={`/notes/${note.id}`}>
+//               {sampleNote}
+//             </NavLink>
+//           </li>
+//         </div>
+//       )
+//   })
+// }
