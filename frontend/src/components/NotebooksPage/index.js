@@ -33,11 +33,11 @@ function NoteBooksPage() {
         </div>
       <ul>
         {notebook.map((book)=> {
-          // if(book.private === false) {
+          if(book.private === false) {
             return (
             <div>
               <NavLink
-                key='book.id'
+                key={book.id}
                 to={`/notebooks/${book.id}`}>
               {book.title}
               </NavLink>
@@ -47,7 +47,7 @@ function NoteBooksPage() {
                 <li> Potential List of Notes within Notebook </li>
               </ul>
             </div>)
-          // }
+          }
         })}
       </ul>
     </main>

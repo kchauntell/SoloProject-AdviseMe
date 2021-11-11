@@ -12,21 +12,22 @@ function NoteBooksIDPage() {
     let books = arrNotebook.map((obj) => obj[1])
     return books;
   });
-  const note = useSelector(state => {
-    let arrNote = Object.entries(state.note);
-    let adviceNotes = arrNote.map((obj) => obj[1])
-    return adviceNotes;
-  });
+  // const note = useSelector(state => {
+  //   let arrNote = Object.entries(state.note);
+  //   let adviceNotes = arrNote.map((obj) => obj[1])
+  //   return adviceNotes;
+  // });
 
-  useEffect(() => {
-    dispatch(getNote());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getNote());
+  // }, [dispatch]);
 
   useEffect(() => {
     dispatch(getNotebook());
   }, [dispatch])
-  if(!note)
+  if(!notebook)
     return null;
+
 
   return (
     <main>
@@ -36,20 +37,19 @@ function NoteBooksIDPage() {
           href='/notes'
         > Add Note</a>
       </div>
-      <ul>
-        {note.map((singleNote) => {
-          if (singleNote.noteBookId === notebook.id) {
+      <div>
+        <ul>
+          {notebook.map((book) => {
             return (
-            <div>
-              <NavLink
-              key='singleNote.id'
-              to={`/notes/${singleNote.id}`}>
-              {singleNote.title}
-              </NavLink>
-            </div>)
-          }
-        })}
-      </ul>
+              <div>
+                <NavLink key={book}>
+
+                </NavLink>
+              </div>
+            )
+          })}
+        </ul>
+      </div>
     </main>
 
   )
