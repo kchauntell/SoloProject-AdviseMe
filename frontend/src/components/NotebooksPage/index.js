@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {BrowserRouter, NavLink, Route} from 'react-router-dom'
+import {BrowserRouter, NavLink, Route} from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNotebook } from '../../store/notebook';
@@ -25,24 +25,31 @@ function NoteBooksPage() {
 
   return (
     <main>
-      <div> ADVISE WITH CAUTION AND CARE! </div>
+      <h1>ADVISE WITH CAUTION AND CARE!</h1>
+        <div>
+          <button
+            type='submit'>Add Notebook
+            </button>
+        </div>
       <ul>
         {notebook.map((book)=> {
-          if(book.private === false) {
+          // if(book.private === false) {
             return (
             <div>
               <NavLink
                 key='book.id'
-                to={`./notebooks/${book.id}`}>
+                to={`/notebooks/${book.id}`}>
               {book.title}
               </NavLink>
+              <ul>
+                <li>{book.genre}</li>
+                <li>Advice Given by: (pull in username)</li>
+                <li> Potential List of Notes within Notebook </li>
+              </ul>
             </div>)
-          }
+          // }
         })}
       </ul>
-      <div>
-        <button type='submit'>Add Notebook</button>
-      </div>
     </main>
 
   )

@@ -1,6 +1,6 @@
 import { csrfFetch } from './csrf';
 
-const LOAD = 'notebook/load'
+const LOAD = 'notebook/LOAD'
 
 const load = (notebooks) => {
   return {
@@ -11,7 +11,7 @@ const load = (notebooks) => {
 
 export const getNotebook = () => async (dispatch) => {
   const response = await csrfFetch(`/api/notebooks`);
-  console.log(response);
+  // console.log(response);
 
   if(response.ok) {
     const list = await response.json();
