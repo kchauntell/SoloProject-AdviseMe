@@ -46,9 +46,11 @@ function NoteBooksPage() {
                 <li>Advice Given by: (pull in username)</li>
                 <li> Potential List of Notes within Notebook </li>
               </ul>
-            </div>)
+            </div>
+            )
           }
-        })}
+        }
+      )}
       </ul>
     </main>
 

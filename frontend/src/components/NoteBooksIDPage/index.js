@@ -30,14 +30,15 @@ function NoteBooksIDPage() {
       <div>
         <ul>
           {notebook.Notes.map((notes) => {
-            return (
-              <div key={notes.id} >
-                <NavLink to={`/notes/${notes.id}`}>
-                  {notes.note.slice(0, 75) + '...'}
-                </NavLink>
-                <NavLink to={`/notes/edit/${notes.id}`}>Edit</NavLink>
-              </div>
-            )
+            if(notes.private === false) {
+              return (
+                <div key={notes.id} >
+                  <NavLink to={`/notes/${notes.id}`}>
+                    {notes.note.slice(0, 75) + '...'}
+                  </NavLink>
+                  <NavLink to={`/notes/edit/${notes.id}`}>Edit</NavLink>
+                </div>
+              )}
           })}
         </ul>
       </div>
