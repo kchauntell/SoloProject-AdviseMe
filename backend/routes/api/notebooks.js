@@ -11,4 +11,10 @@ router.get('/', asyncHandler(async (_req, res) => {
   return res.json(notebooks);
 }))
 
+router.get('/:id(\\d+)', asyncHandler(async (_req, res) => {
+  const notes = await Notebook.findByPk(_req.params.id, { include: Note});
+  return res.json(notes)
+}));
+
+
 module.exports = router;

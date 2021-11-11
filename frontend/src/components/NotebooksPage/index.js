@@ -56,6 +56,3 @@ function NoteBooksPage() {
 }
 
 export default NoteBooksPage;
-
-// let noteId = notes.map(note => note.noteBookId);
-// let bookId = notebook.map(book => book.id);

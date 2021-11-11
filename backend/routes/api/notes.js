@@ -9,4 +9,5 @@ router.get('/', asyncHandler(async (_req, res) => {
   return res.json(notes);
 }))
 
+
 module.exports = router;

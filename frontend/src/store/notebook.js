@@ -1,6 +1,7 @@
 import { csrfFetch } from './csrf';
 
 const LOAD = 'notebook/LOAD'
+// const LOAD_NOTE = 'notebook/LOAD_NOTE'
 
 const load = (notebooks) => {
   return {
@@ -8,6 +9,13 @@ const load = (notebooks) => {
     notebooks
   }
 }
+
+// const loadNote = (notes) => {
+//   return {
+//     type: LOAD_NOTE,
+//     notes
+//   }
+// }
 
 export const getNotebook = () => async (dispatch) => {
   const response = await csrfFetch(`/api/notebooks`);
@@ -18,6 +26,14 @@ export const getNotebook = () => async (dispatch) => {
     dispatch(load(list));
   }
 }
+
+// export const getNotes = () => async (dispatch) => {
+//   const response = csrfFetch(`/api/notebooks/:id(\\d+)}`);
+//   if (response.ok) {
+//     const noteList = await response.json();
+//     dispatch(load(noteList))
+//   }
+// }
 
 const initialState = {}
 
@@ -35,6 +51,11 @@ const notebookReducer = (state =initialState, action) => {
         ...state,
       }
     }
+    // case LOAD_NOTE: {
+    //   const allNotes = {}
+    //   action.notes.forEach((note) => )
+    // }
+
     default:
       return state;
   }
