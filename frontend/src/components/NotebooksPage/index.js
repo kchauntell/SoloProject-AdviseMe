@@ -22,21 +22,20 @@ function NoteBooksPage() {
   if(!notebook)
     return null;
 
-
   return (
     <main>
-      <h1>ADVISE WITH CAUTION AND CARE!</h1>
-        <div>
-          <NavLink
-            to='/notebooks/create'>Add Notebook
-            </NavLink>
-          {/* <NavLink
-            to={`/notebooks/`}>My Notebooks
-            </NavLink> */}
+      <h1 align='center'>ADVISE WITH CAUTION AND CARE!</h1>
+        <div align='right'>
+          <a
+            href='/notebook'>Add Notebook
+          </a>
+          <a
+          href='/:id/notebooks'>My Notebooks
+          </a>
         </div>
       <ul>
         {notebook.map((book)=> {
-          if(book.private === false) {
+          if(book.hidden === false) {
             return (
             <div>
               <NavLink
@@ -46,14 +45,12 @@ function NoteBooksPage() {
               </NavLink>
               <ul>
                 <li>{book.genre}</li>
-                <li>Advice Given by: (pull in username)</li>
-                <li> Potential List of Notes within Notebook </li>
               </ul>
-            </div>
-            )
+              <NavLink to={`/notebooks/${book.id}/edit`} > Edit Notebook</NavLink>
+            </div>)
           }
         }
-      )}
+        )}
       </ul>
     </main>
 

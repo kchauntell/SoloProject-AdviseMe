@@ -29,7 +29,7 @@ function NoteBooksIDPage() {
       <div>
         <ul>
           {notebook.Notes.map((notes) => {
-            if(notes.private === false){
+            if(notes.hidden === false){
               return (
                 <div key={notes.id} >
                   <NavLink to={`/notes/${notes.id}`}>
