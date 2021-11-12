@@ -64,14 +64,13 @@ const noteReducer = (state = initialState, action) => {
       }
     }
     case ADD_NOTE: {
-      if(!state[action.note.id]) {
-        const newState = {
+      let newState = {...state};
+      if(!state[action.newNote.id]) {
+        newState = {
           ...state,
           [action.newNote.id]: action.newNote
         };
-        const noteList = newState.notes.map((id) => newState[id]);
-        noteList.push(action.newNote);
-        newState.notes = noteList;
+        newState[action.newNote.id] = action.newNote
         return newState;
       }
       return {

@@ -9,9 +9,13 @@ function NotesPage() {
   const dispatch = useDispatch();
   const notes = useSelector(state => {
     return state.note[noteId]
-  })
+  }); 
 
   console.log(notes)
+
+  useEffect(() => {
+    dispatch(getNote());
+  }, [dispatch]);
 
   return (
     <h1> Full Note will be here </h1>

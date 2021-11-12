@@ -14,7 +14,7 @@ function NoteBooksIDPage() {
 
   useEffect(() => {
     dispatch(getNotebook());
-  }, [dispatch])
+  }, [notebookId, dispatch])
   if(!notebook)
     return null;
 
@@ -23,7 +23,7 @@ function NoteBooksIDPage() {
       <h1> Study the WISDOM, please CHOOSE the RIGHT PATH!</h1>
       <div>
         <NavLink
-          to='/notes'
+          to={`/notes/${notebookId}`}
         > Add Note</NavLink>
       </div>
       <div>
@@ -33,8 +33,11 @@ function NoteBooksIDPage() {
               return (
                 <div key={notes.id} >
                   <NavLink to={`/notes/${notes.id}`}>
-                    {notes.note.slice(0, 75) + '...'}
+                    {notes.title}
                   </NavLink>
+                  <p>
+                    {notes.note.slice(0, 75) + '...'}
+                  </p>
                   <NavLink to={`/notes/edit/${notes.id}`}>Edit</NavLink>
                 </div>
               )}

@@ -8,30 +8,33 @@ const router = express.Router();
 
 router.get('/', asyncHandler(async (_req, res) => {
   const notes = await Note.findAll();
+  console.log(_req.body)
+  // console.log(notes.id);
   return res.json(notes);
 }));
 
 router.post('/', asyncHandler(async (_req, res) => {
   const {
     note,
+    title,
     userId,
     hidden,
     noteBookId
   } = _req.body
 
-  // const user = User.findOne(id);
-  // const notebook = Notebook.findOne(id);
+  console.log('*****************************')
+  console.log(_req.body)
+  console.log('*****************************')
 
   const newNote = await Note.create({
     note,
+    title,
     userId,
     hidden,
-    noteBookId,
-    // user,
-    // notebook
+    noteBookId
   })
-
-  res.json({ newNote });
+  console.log(newNote);
+  res.json(newNote);
 }))
 
 module.exports = router;

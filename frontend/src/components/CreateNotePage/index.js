@@ -1,35 +1,36 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import * as noteActions from '../../store/note';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { getNotes } from '../../store/note';
+import { getNote } from '../../store/note';
 import './CreateNotePage.css';
 
 function CreateNotePage() {
   const dispatch = useDispatch();
+  const {noteBookId} = useParams();
   const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
+  const [title, setTitle] = useState('');
   const [note, setNote] = useState('');
-  const [hidden, setHidden] = useState();
+  const [hidden, setHidden] = useState(false);
   const [errors, setErrors] = useState([]);
 
+  console.log(noteBookId, '-----------');
 
-  const handleSubmit = (e) => {
-    setNote(note);
-    setHidden(hidden);
+  useEffect(() => {
+    dispatch(getNote());
+  }, [dispatch])
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    return dispatch(noteActions.createNote({hidden, note}))
+    if(note === '') {
+      return
+    }
 
-    // setNote(note);
-    // setPrivate(_private);
-
-    // const payload = {
-    //   note,
-    //   _private
-    // }
-    history.push(`/`);
+    const newNote = await dispatch(noteActions.createNote({hidden, title, note, noteBookId, userId: sessionUser.id}))
+    history.push(`/notebooks/${noteBookId}`);
   }
 
   const handleChange = (e) => {
@@ -43,19 +44,32 @@ function CreateNotePage() {
 
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
+
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
       <div>
-        <label> What is your advice?
-          <textarea
-            name='noteTextArea'
-            id='noteTextArea'
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            placeholder ='Enlighten us with your wisdom'
+        <label> Title
+          <input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder ='Description of note here.... '
             required >
-          </textarea>
+          </input>
+        </label>
+      </div>
+      <div>
+        <label> What is your advice?
+          <div>
+            <textarea
+              name='noteTextArea'
+              id='noteTextArea'
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              placeholder ='Enlighten us with your wisdom'
+              required >
+            </textarea>
+          </div>
         </label>
       </div>
       <div>
