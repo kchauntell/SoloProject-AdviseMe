@@ -27,9 +27,12 @@ function NoteBooksPage() {
     <main>
       <h1>ADVISE WITH CAUTION AND CARE!</h1>
         <div>
-          <button
-            type='submit'>Add Notebook
-            </button>
+          <NavLink
+            to='/notebooks/create'>Add Notebook
+            </NavLink>
+          {/* <NavLink
+            to={`/notebooks/`}>My Notebooks
+            </NavLink> */}
         </div>
       <ul>
         {notebook.map((book)=> {

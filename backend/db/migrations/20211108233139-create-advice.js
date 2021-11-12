@@ -12,7 +12,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT
       },
-      private: {
+      hidden: {
         allowNull: false,
         type: Sequelize.BOOLEAN
       },

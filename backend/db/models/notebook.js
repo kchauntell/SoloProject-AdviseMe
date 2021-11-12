@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         len: [4, 50]
       }
     },
-    private: {
+    hidden: {
       type: DataTypes.BOOLEAN,
       allowNull: false
     },

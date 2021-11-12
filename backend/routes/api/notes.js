@@ -9,13 +9,13 @@ const router = express.Router();
 router.get('/', asyncHandler(async (_req, res) => {
   const notes = await Note.findAll();
   return res.json(notes);
-}))
+}));
 
-router.post('/notes', asyncHandler(async (_req, res) => {
+router.post('/', asyncHandler(async (_req, res) => {
   const {
     note,
     userId,
-    private,
+    hidden,
     noteBookId
   } = _req.body
 
@@ -25,7 +25,7 @@ router.post('/notes', asyncHandler(async (_req, res) => {
   const newNote = await Note.create({
     note,
     userId,
-    private,
+    hidden,
     noteBookId,
     user,
     notebook

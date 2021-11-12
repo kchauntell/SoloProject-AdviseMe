@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    private: {
+    hidden: {
       type: DataTypes.BOOLEAN,
       allowNull: false
     },
