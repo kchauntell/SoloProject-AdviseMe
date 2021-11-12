@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 import * as noteActions from '../../store/note';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { getNotes } from '../../store/note';
 import './CreateNotePage.css';
 
 function CreateNotePage() {
@@ -10,18 +11,16 @@ function CreateNotePage() {
   const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
   const [note, setNote] = useState('');
-  const [_private, setPrivate] = useState();
+  const [hidden, setHidden] = useState();
   const [errors, setErrors] = useState([]);
 
 
   const handleSubmit = (e) => {
     setNote(note);
-    setPrivate(_private);
+    setHidden(hidden);
     e.preventDefault();
 
-    if(!note) {
-      return dispatch(noteActions.createNote({_private, note}))
-    }
+    return dispatch(noteActions.createNote({hidden, note}))
 
     // setNote(note);
     // setPrivate(_private);
@@ -30,26 +29,28 @@ function CreateNotePage() {
     //   note,
     //   _private
     // }
-    history('/notes');
+    history.push(`/`);
   }
 
   const handleChange = (e) => {
     let checkbox = e.target;
     if(checkbox.checked) {
-      setPrivate(e.target.value === true)
+      setHidden(e.target.value === true)
     } else {
-      setPrivate(e.target.value === false)
+      setHidden(e.target.value === false)
     }
   }
 
   return (
-    <form onSubmit={(e) => handleSubmit()}>
+    <form onSubmit={(e) => handleSubmit(e)}>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
       <div>
         <label> What is your advice?
           <textarea
+            name='noteTextArea'
+            id='noteTextArea'
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder ='Enlighten us with your wisdom'
@@ -61,7 +62,7 @@ function CreateNotePage() {
         <label> Would you like to keep this hidden?
           <input
           type='checkbox'
-          value={_private}
+          value={hidden}
           onChange={(e) => handleChange(e)}>
           </input>
         </label>

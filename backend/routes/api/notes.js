@@ -19,19 +19,19 @@ router.post('/', asyncHandler(async (_req, res) => {
     noteBookId
   } = _req.body
 
-  const user = User.findOne(id);
-  const notebook = Notebook.findOne(id);
+  // const user = User.findOne(id);
+  // const notebook = Notebook.findOne(id);
 
   const newNote = await Note.create({
     note,
     userId,
     hidden,
     noteBookId,
-    user,
-    notebook
+    // user,
+    // notebook
   })
 
-  res.redirect(`/notes/${newNote.id}`);
+  res.json({ newNote });
 }))
 
 module.exports = router;
