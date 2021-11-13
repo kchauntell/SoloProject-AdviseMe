@@ -50,9 +50,9 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
   User.associate = function(models) {
-    User.hasMany(models.Notebook, {foreignKey: 'userId'});
-    User.hasMany(models.Note, {foreignKey: 'userId'});
-    User.hasMany(models.Advice, {foreignKey: 'userId'});
+    User.hasMany(models.Notebook, {foreignKey: 'userId', onDelete: 'CASCADE', hooks:true});
+    User.hasMany(models.Note, {foreignKey: 'userId', onDelete: 'CASCADE', hooks: true});
+    User.hasMany(models.Advice, {foreignKey: 'userId', onDelete: 'CASCADE', hooks: true});
   };
   User.prototype.toSafeObject = function () {
     const { id, username, email } = this;
