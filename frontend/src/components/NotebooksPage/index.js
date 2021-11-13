@@ -27,7 +27,7 @@ function NoteBooksPage() {
       <h1 align='center'>ADVISE WITH CAUTION AND CARE!</h1>
         <div align='right'>
           <a
-            href='/notebook'>Add Notebook
+            href='/notebooks'>Add Notebook
           </a>
           <a
           href='/:id/notebooks'>My Notebooks
@@ -47,6 +47,7 @@ function NoteBooksPage() {
                 <li>{book.genre}</li>
               </ul>
               <NavLink to={`/notebooks/${book.id}/edit`} > Edit Notebook</NavLink>
+              <button type='delete'>Delete NoteBook</button>
             </div>)
           }
         }

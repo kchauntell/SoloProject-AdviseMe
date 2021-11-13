@@ -22,10 +22,6 @@ router.post('/', asyncHandler(async (_req, res) => {
     noteBookId
   } = _req.body
 
-  console.log('*****************************')
-  console.log(_req.body)
-  console.log('*****************************')
-
   const newNote = await Note.create({
     note,
     title,

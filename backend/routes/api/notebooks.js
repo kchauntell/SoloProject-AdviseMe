@@ -14,6 +14,23 @@ router.get('/:id(\\d+)', asyncHandler(async (_req, res) => {
   return res.json(notes)
 }));
 
+router.post('/', asyncHandler(async (_req, res) => {
+  const {
+    title,
+    userId,
+    hidden,
+    genre
+  } = _req.body
+
+  const newNotebook = await Notebook.create({
+    title,
+    userId,
+    hidden,
+    genre
+  })
+  console.log(newNotebook);
+  res.json(newNotebook);
+}))
 
 //delete notebook
 

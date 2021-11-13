@@ -7,6 +7,7 @@ import NotebooksPage from './components/NotebooksPage';
 import NoteBooksIDPage from "./components/NoteBooksIDPage";
 import CreateNotePage from './components/CreateNotePage';
 import NotesPage from "./components/NotesPage";
+import CreateNotebookPage from './components/CreateNotebookPage'
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -24,6 +25,9 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <NotebooksPage />
+          </Route>
+          <Route exact path='/notebooks'>
+            <CreateNotebookPage />
           </Route>
           <Route exact path='/notebooks/:notebookId'>
             <NoteBooksIDPage />

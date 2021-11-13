@@ -1,6 +1,7 @@
 import { csrfFetch } from './csrf';
 
 const LOAD = 'notebook/LOAD'
+const ADD_NOTEBOOK = 'note/ADD_NOTEBOOK'
 // const LOAD_NOTE = 'notebook/LOAD_NOTE'
 
 const load = (notebooks) => {
@@ -10,12 +11,10 @@ const load = (notebooks) => {
   }
 }
 
-// const loadNote = (notes) => {
-//   return {
-//     type: LOAD_NOTE,
-//     notes
-//   }
-// }
+const addNotebook = (newNotebook) => ({
+  type: ADD_NOTEBOOK,
+  newNotebook
+})
 
 export const getNotebook = () => async (dispatch) => {
   const response = await csrfFetch(`/api/notebooks`);
@@ -27,6 +26,21 @@ export const getNotebook = () => async (dispatch) => {
   }
 }
 
+export const createNotebook = (data) => async (dispatch) => {
+  const response = await csrfFetch(`/api/notebooks`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+
+  if (response.ok) {
+    const publishNotebook = await response.json();
+    dispatch(addNotebook(publishNotebook));
+    return publishNotebook;
+  }
+}
 // export const getNotes = () => async (dispatch) => {
 //   const response = csrfFetch(`/api/notebooks/:id(\\d+)}`);
 //   if (response.ok) {
@@ -51,11 +65,24 @@ const notebookReducer = (state =initialState, action) => {
         ...state,
       }
     }
-    // case LOAD_NOTE: {
-    //   const allNotes = {}
-    //   action.notes.forEach((note) => )
-    // }
-
+    case ADD_NOTEBOOK: {
+      let newState = { ...state };
+      if (!state[action.newNotebook.id]) {
+        newState = {
+          ...state,
+          [action.newNotebook.id]: action.newNotebook
+        };
+        newState[action.newNotebook.id] = action.newNotebook
+        return newState;
+      }
+      return {
+        ...state,
+        [action.newNotebook.id]: {
+          ...state[action.newNotebook.id],
+          ...action.newNotebook
+        }
+      }
+    }
     default:
       return state;
   }

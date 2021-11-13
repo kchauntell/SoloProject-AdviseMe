@@ -21,12 +21,13 @@ function NoteBooksIDPage() {
   return (
     <main>
       <h1> Study the WISDOM, please CHOOSE the RIGHT PATH!</h1>
+      <h2 align='center'>{notebook.title}</h2>
       <div>
         <NavLink
           to={`/notes/${notebookId}`}
         > Add Note</NavLink>
       </div>
-      <div>
+      <div align='center'>
         <ul>
           {notebook.Notes.map((notes) => {
             if(notes.hidden === false){
@@ -35,10 +36,13 @@ function NoteBooksIDPage() {
                   <NavLink to={`/notes/${notes.id}`}>
                     {notes.title}
                   </NavLink>
-                  <p>
-                    {notes.note.slice(0, 75) + '...'}
-                  </p>
-                  <NavLink to={`/notes/edit/${notes.id}`}>Edit</NavLink>
+                  <div>
+                    <p> {notes.note.slice(0, 75) + '...'}</p>
+                    <NavLink to={`/notes/edit/${notes.id}`}>Edit</NavLink>
+                  </div>
+                  <div>
+                    <button type='delete'>Delete</button>
+                  </div>
                 </div>
               )}
           })}
