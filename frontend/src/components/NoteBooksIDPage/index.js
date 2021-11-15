@@ -11,7 +11,6 @@ function NoteBooksIDPage() {
     return state.notebook[notebookId]
   });
 
-
   useEffect(() => {
     dispatch(getNotebook());
   }, [notebookId, dispatch])
@@ -33,7 +32,7 @@ function NoteBooksIDPage() {
             if(notes.hidden === false){
               return (
                 <div key={notes.id} >
-                  <NavLink to={`/notes/${notes.id}`}>
+                  <NavLink to={`/note/${notes.id}`}>
                     {notes.title}
                   </NavLink>
                   <div>

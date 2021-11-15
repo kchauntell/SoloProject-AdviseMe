@@ -7,18 +7,22 @@ import { getNote} from '../../store/note';
 function NotesPage() {
   const {noteId} = useParams();
   const dispatch = useDispatch();
-  const notes = useSelector(state => {
+  const note = useSelector(state => {
     return state.note[noteId]
-  }); 
+  });
 
-  console.log(notes)
+  console.log(note.title, '*******');
 
   useEffect(() => {
     dispatch(getNote());
   }, [dispatch]);
 
+  if(!note) return null;
+
   return (
-    <h1> Full Note will be here </h1>
+    <div>
+      <h1>Testing</h1>
+    </div>
   )
 }
 

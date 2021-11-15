@@ -35,7 +35,7 @@ function App() {
           <Route exact path='/notes/:noteBookId'>
             <CreateNotePage />
           </Route>
-          <Route exact path="/notes/:id">
+          <Route exact path="/note/:noteId">
             <NotesPage />
           </Route>
           <Route path="/login">
