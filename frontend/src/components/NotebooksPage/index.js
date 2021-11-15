@@ -65,7 +65,7 @@ function NoteBooksPage() {
           href='/:id/notebooks'>My Notebooks
           </a>
         </div>
-      <ul>
+      <ul id='notebooklist'>
         {notebook.map((book)=> {
           if(book.hidden === false) {
             if(sessionUser) {
