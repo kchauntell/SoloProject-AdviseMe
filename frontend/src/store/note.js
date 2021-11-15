@@ -53,21 +53,6 @@ export const createNote = (data) => async (dispatch) => {
   }
 }
 
-// export const renovateNote = (data) => async (dispatch) => {
-//   const response = await csrfFetch(`/api/notes/${data.id}`, {
-//     method: 'PUT',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(data)
-//   });
-
-//   if (response.ok) {
-//     const note = await response.json();
-//     dispatch(addNote(note));
-//     return note;
-//   }
-// }
 
 export const removeNote = (noteId) => async (dispatch) => {
   const response = await csrfFetch(`/api/notes/${noteId}`, {

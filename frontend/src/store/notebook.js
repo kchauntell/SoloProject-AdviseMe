@@ -3,7 +3,7 @@ import { csrfFetch } from './csrf';
 const LOAD = 'notebook/LOAD'
 const ADD_NOTEBOOK = 'note/ADD_NOTEBOOK'
 const DELETE_NOTE = 'note/DELETE_NOTE'
-const DELETE_NOTEBOOK = 'note/DELETE_NOTeBOOK'
+const DELETE_NOTEBOOK = 'note/DELETE_NOTEBOOK'
 // const LOAD_NOTE = 'notebook/LOAD_NOTE'
 
 const load = (notebooks) => {
@@ -50,12 +50,13 @@ export const createNotebook = (data) => async (dispatch) => {
   }
 }
   export const removeNotebook = (notebookId) => async dispatch => {
+    console.log(notebookId, 'ooooooooooooo')
     const response = await csrfFetch(`/api/notebooks/${notebookId}`, {
       method: 'DELETE'
     });
     if (response.ok) {
-      const note = await response.json();
-      dispatch(deleteNotebook(note));
+      const notebook = await response.json();
+      dispatch(deleteNotebook(notebook));
     }
   }
 

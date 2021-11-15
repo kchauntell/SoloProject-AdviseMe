@@ -9,7 +9,7 @@ import './NotebooksPage.css';
 function NoteBooksPage() {
   const sessionUser = useSelector(state => state.session.user)
   const history = useHistory();
-  const {notebookId} = useParams();
+  const {nbId} = useParams();
   const dispatch = useDispatch();
   const notebook = useSelector(state => {
     let arrNotebook = Object.entries(state.notebook)
@@ -22,10 +22,10 @@ function NoteBooksPage() {
   const handleEdit = async (e) => {
     e.preventDefault();
 
-    history.push(`/notebooks/${notebookId}/edit`)
+    history.push(`/notebooks/${nbId}/edit`)
   }
 
-  const handleDelete = async (e) => {
+  const handleDelete = async (notebookId, e) => {
     e.preventDefault();
 
     await dispatch(notebookActions.removeNotebook(notebookId))
@@ -33,18 +33,18 @@ function NoteBooksPage() {
   }
   let buttons;
 
-  if(sessionUser) {
-    buttons = (
-      <>
-      <button
-      onClick={(e) => handleEdit(e)}
-      >Edit NoteBook</button>
-      <button
-      onClick={(e) => handleDelete(e)}
-      >Delete NoteBook</button>
-      </>
-    )
-  }
+  // if(sessionUser) {
+  //   buttons = (
+  //     <>
+  //     <button
+  //     onClick={(e) => handleEdit(e)}
+  //     >Edit NoteBook</button>
+  //     <button
+  //     onClick={(e) => handleDelete(e)}
+  //     >Delete NoteBook</button>
+  //     </>
+  //   )
+  // }
 
   useEffect(() => {
     dispatch(getNotebook());
@@ -67,18 +67,39 @@ function NoteBooksPage() {
       <ul>
         {notebook.map((book)=> {
           if(book.hidden === false) {
-            return (
-            <div>
-              <NavLink
-                key={book.id}
-                to={`/notebooks/${book.id}`}>
-              {book.title}
-              </NavLink>
-              <ul>
-                <li>{book.genre}</li>
-              </ul>
-              {buttons}
-            </div>)
+            if(sessionUser) {
+              return (
+                <div>
+                  <NavLink
+                    key={book.id}
+                    to={`/notebooks/${book.id}`}>
+                    {book.title}
+                  </NavLink>
+                  <ul>
+                    <li>{book.genre}</li>
+                  </ul>
+                  <>
+                    <button
+                      onClick={(e) => handleEdit(book.id, e)}
+                    >Edit NoteBook</button>
+                    <button
+                      onClick={(e) => handleDelete(book.id, e)}
+                    >Delete NoteBook</button>
+                  </>
+                </div>)
+            } else {
+              return (
+                <div>
+                  <NavLink
+                    key={book.id}
+                    to={`/notebooks/${book.id}`}>
+                    {book.title}
+                  </NavLink>
+                  <ul>
+                    <li>{book.genre}</li>
+                  </ul>
+                </div>)
+            }
           }
         }
         )}
