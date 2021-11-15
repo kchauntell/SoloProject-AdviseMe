@@ -9,7 +9,7 @@ import './NotebooksPage.css';
 function NoteBooksPage() {
   const sessionUser = useSelector(state => state.session.user)
   const history = useHistory();
-  const {nbId} = useParams();
+  const {notebookId} = useParams();
   const dispatch = useDispatch();
   const notebook = useSelector(state => {
     let arrNotebook = Object.entries(state.notebook)
@@ -22,7 +22,8 @@ function NoteBooksPage() {
   const handleEdit = async (notebookId, e) => {
     e.preventDefault();
 
-    history.push(`/notebooks/${nbId}/edit`)
+    // await dispatch(notebookActions.editNotebook(notebookId))
+    history.push(`/notebooks/${notebookId}/edit`)
   }
 
   const handleDelete = async (notebookId, e) => {

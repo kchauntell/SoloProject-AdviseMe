@@ -66,20 +66,25 @@ export const createNotebook = (data) => async (dispatch) => {
     }
   }
 
-export const editNotebook = (data) => async (dispatch) => {
-  const notebookId = data.id
-  const response = await csrfFetch(`/api/notebooks/${notebookId}`, {
+export const editNotebook = (notebook, id) => async (dispatch) => {
+  const {title, genre, hidden} = notebook
+  console.log(notebook, '8888888888888888' )
+  const response = await csrfFetch(`/api/notebooks/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify({
+      title,
+      genre,
+      hidden
+    })
   })
 
   if(response.ok) {
-    const updatedNotebook = await response.json();
-    dispatch(updateNotebook(data));
-    return updatedNotebook;
+    const data = await response.json();
+    await dispatch(addNotebook(data));
+    return data;
   }
 }
 
@@ -122,7 +127,7 @@ const notebookReducer = (state =initialState, action) => {
       console.log(action, '999999999999');
         return {
           ...state,
-          [action.data.id]: action.data
+          [action.notebookId.id]: action.notebookId
         }
       }
     case DELETE_NOTEBOOK: {

@@ -36,18 +36,19 @@ router.post('/', asyncHandler(async (_req, res) => {
 // edit notebook
 
 router.put('/:id(\\d+)', asyncHandler(async (_req, res, next) => {
-  const userId = _req.user.id;
+  const userId = req.user.id;
   const notebookId = _req.params.id;
 
   const {title, genre, hidden} = _req.body
-  console.log(_req.body)
 
   const notebook = await Notebook.findByPk(notebookId);
 
-  if(notebook && notebook.userId === userId) {
-    notebook.title = req.body.title || notebook.title
-    notebook.genre = req.body.genre || notebook.genre
-    notebook.hidden = req.body.hidden || notebook.hidden
+  if(notebook) {
+    await Notebook.update({
+      title,
+      genre,
+      hidden
+    })
 
     await Notebook.save();
   }
@@ -63,7 +64,7 @@ router.delete('/:id(\\d+)', requireAuth, asyncHandler(async (_req, res, next) =>
   const notebook = await Notebook.findByPk(notebookId);
 
   if (notebook && notebook.userId === userId) {
-    // console.log(notebook, 'ppppppppppppppp');
+    console.log(notebook, 'ppppppppppppppp');
     await notebook.destroy();
     res.json(notebook);
   } else {

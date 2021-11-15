@@ -15,7 +15,7 @@ function NoteEditPage() {
   const [hidden, setHidden] = useState(false);
   const [errors, setErrors] = useState([]);
 
-  console.log(noteId, '-----------');
+  // console.log(noteId, '-----------');
 
 
   const handleSubmit = async (e) => {
