@@ -22,6 +22,7 @@ function NoteBooksPage() {
   const handleEdit = async (notebookId, e) => {
     e.preventDefault();
 
+    // await dispatch(notebookActions.editNotebook(notebookId))
     history.push(`/notebooks/${notebookId}/edit`)
   }
 

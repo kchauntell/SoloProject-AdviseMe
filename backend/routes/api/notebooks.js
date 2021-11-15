@@ -44,9 +44,11 @@ router.put('/:id(\\d+)', asyncHandler(async (_req, res, next) => {
   const notebook = await Notebook.findByPk(notebookId);
 
   if(notebook) {
-    notebook.title = req.body.title || notebook.title
-    notebook.genre = req.body.genre || notebook.genre
-    notebook.hidden = req.body.hidden || notebook.hidden
+    await Notebook.update({
+      title,
+      genre,
+      hidden
+    })
 
     await Notebook.save();
   }

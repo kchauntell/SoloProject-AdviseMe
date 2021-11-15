@@ -16,7 +16,7 @@ function CreateNotePage() {
   const [hidden, setHidden] = useState(false);
   const [errors, setErrors] = useState([]);
 
-  console.log(noteBookId, '-----------');
+  // console.log(noteBookId, '-----------');
 
   useEffect(() => {
     dispatch(getNote());

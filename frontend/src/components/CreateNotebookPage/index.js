@@ -39,7 +39,7 @@ function CreateNotebookPage() {
     history.push(`/`);
   }
 
-  console.log(noteBookId, '-----------');
+  // console.log(noteBookId, '-----------');
 
   const handleChange = (e) => {
     let checkbox = e.target;

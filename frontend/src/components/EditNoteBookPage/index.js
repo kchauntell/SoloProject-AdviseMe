@@ -35,7 +35,7 @@ function EditNoteBookPage() {
       return
     }
 
-    dispatch(noteBookActions.editNotebook({ hidden, title, genre }))
+    dispatch(noteBookActions.editNotebook(noteBookId))
     history.push(`/`);
   }
 
