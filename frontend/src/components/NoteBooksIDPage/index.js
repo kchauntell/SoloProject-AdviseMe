@@ -20,16 +20,16 @@ function NoteBooksIDPage() {
 
   let buttons;
 
-  if(sessionUser) {
-    buttons = (
-      <>
-      <button
-      >Edit Note</button>
-      <button
-      >Delete Note</button>
-      </>
-    )
-  }
+  // if(sessionUser) {
+  //   buttons = (
+  //     <>
+  //     <button
+  //     >Edit Note</button>
+  //     <button
+  //     >Delete Note</button>
+  //     </>
+  //   )
+  // }
 
   useEffect(() => {
     dispatch(getNotebook());
@@ -58,7 +58,7 @@ function NoteBooksIDPage() {
                   <div>
                     <p> {notes.note.slice(0, 75) + '...'}</p>
                   </div>
-                  {buttons}
+                  {/* {buttons} */}
                 </div>
               )}
           })}

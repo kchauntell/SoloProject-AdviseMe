@@ -41,17 +41,22 @@ router.post('/', asyncHandler(async (_req, res) => {
 }))
 
 //edit note
-router.put('/:id(\\d+)', asyncHandler(async (_req, res, next) => {
-  const note= await Note.findByPk(req.params.id);
+router.put('/:id(\\d+)', requireAuth, asyncHandler(async (_req, res, next) => {
+  const userId = _req.user.id;
+  const noteId = _req.params.id;
 
-  if (note) {
-    note.title = req.body.title || note.title
-    note.note = req.body.note || note.note
-    note.hidden  = req.body.hidden || note.hidden
+  const { title, note, hidden, notBookId } = _req.body
+
+  const changeNote = await Note.findByPk(noteId);
+
+  if (changeNote && note.userId === userId) {
+    note.title = _req.body.title || note.title
+    note.note = _req.body.note || note.note
+    note.hidden  = _req.body.hidden || note.hidden
 
     await Note.save();
-    return res.json({ note })
   }
+  return res.json({ changeNote })
 }))
 
 //deleting note

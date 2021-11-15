@@ -1,33 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import * as noteActions from '../../store/note';
+import * as noteBookActions from '../../store/notebook';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import './NoteEditPage.css';
+import { getNotebook } from '../../store/notebook';
+import './EditNoteBookPage.css';
 
-function NoteEditPage() {
+
+const categories = [
+  'Relationships',
+  'Platonic Relationships',
+  'School/Environment',
+  'Work Environment/Relationships'
+]
+
+function EditNoteBookPage() {
   const dispatch = useDispatch();
-  const { noteId } = useParams();
+  const { noteBookId } = useParams();
   const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
   const [title, setTitle] = useState('');
-  const [note, setNote] = useState('');
+  const [genre, setGenre] = useState('Relationships');
   const [hidden, setHidden] = useState(false);
   const [errors, setErrors] = useState([]);
 
-  console.log(noteId, '-----------');
-
+  useEffect(() => {
+    dispatch(getNotebook());
+  }, [dispatch])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (note === '') {
+    if (title === '') {
       return
     }
 
-    // const newNote = await dispatch(noteActions.({ hidden, title, note, noteBookId, userId: sessionUser.id }))
-    // history.push(`/notebooks/${noteBookId}`);
+    const newNotebook = await dispatch(noteBookActions.createNotebook({ hidden, title, genre, userId: sessionUser.id }))
+    history.push(`/`);
   }
+
+  console.log(noteBookId, '-----------');
 
   const handleChange = (e) => {
     let checkbox = e.target;
@@ -49,27 +61,28 @@ function NoteEditPage() {
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder='Description of note here.... '
+            placeholder='Name your Notebook here.... '
             required >
           </input>
         </label>
       </div>
       <div>
-        <label> Need to update your advice?
+        <label> Change Book Genre?
           <div>
-            <textarea
-              name='noteTextArea'
-              id='noteTextArea'
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
+            <select
+              value={genre}
+              onChange={(e) => setGenre(e.target.value)}
               placeholder='Enlighten us with your wisdom'
               required >
-            </textarea>
+              {categories.map((category) => {
+                return (<option>{`${category}`}</option>)
+              })}
+            </select>
           </div>
         </label>
       </div>
       <div>
-        <label> Would you like remain public/hidden?
+        <label> Would you like remain unhidden/hidden?
           <input
             type='checkbox'
             value={hidden}
@@ -77,9 +90,10 @@ function NoteEditPage() {
           </input>
         </label>
       </div>
-      <button type='submit'> Publish My Thoughts!</button>
+      <button type='submit'> Create My Notebook!</button>
     </form>
   )
 }
 
-export default NoteEditPage;
+
+export default EditNoteBookPage;

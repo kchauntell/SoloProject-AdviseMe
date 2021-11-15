@@ -3,6 +3,7 @@ import { csrfFetch } from './csrf';
 const NOTE_LOAD = 'note/LOAD'
 const ADD_NOTE = 'note/ADD_NOTE'
 const DELETE_NOTE = 'note/DELETE_NOTE'
+// const UPDATE_NOTE = 'note/UPDATE_NOTE'
 
 const load = (notes) => {
   return {
@@ -15,6 +16,11 @@ const addNote = (newNote) => ({
   type: ADD_NOTE,
   newNote
 })
+
+// const updateNote = (noteId) => ({
+//   type: UPDATE_NOTE,
+//   noteId
+// })
 
 const deleteNote = (noteId) => ({
   type: DELETE_NOTE,
@@ -47,7 +53,21 @@ export const createNote = (data) => async (dispatch) => {
   }
 }
 
+// export const renovateNote = (data) => async (dispatch) => {
+//   const response = await csrfFetch(`/api/notes/${data.id}`, {
+//     method: 'PUT',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(data)
+//   });
 
+//   if (response.ok) {
+//     const note = await response.json();
+//     dispatch(addNote(note));
+//     return note;
+//   }
+// }
 
 export const removeNote = (noteId) => async (dispatch) => {
   const response = await csrfFetch(`/api/notes/${noteId}`, {
@@ -95,6 +115,15 @@ const noteReducer = (state = initialState, action) => {
         }
       }
     }
+    // case UPDATE_NOTE: {
+    //   newState = {...newState}
+    //   newState = {
+    //     ...state,
+    //     [action.newNote.id]: action.newNote
+    //   };
+    //   newState[action.newNote.id] = action.newNote
+    //   return newState;
+    // }
     case DELETE_NOTE: {
       newState = {...state};
       delete newState[action.noteId];

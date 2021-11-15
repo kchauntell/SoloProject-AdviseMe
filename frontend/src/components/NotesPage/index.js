@@ -17,6 +17,11 @@ function NotesPage() {
 
   // console.log(note, '*******');
 
+  const handleEdit = async (e) => {
+    e.preventDefault();
+
+    history.push(`/notes/${noteId}/edit`)
+  }
 
   const handleDelete = async (e) => {
     e.preventDefault();
@@ -24,6 +29,8 @@ function NotesPage() {
     await dispatch(noteActions.removeNote(noteId))
     history.push(`/`)
   }
+
+
 
   useEffect(() => {
     dispatch(getNote());
@@ -36,7 +43,9 @@ function NotesPage() {
   if (sessionUser) {
     buttons = (
       <>
-        <button>Edit</button>
+        <button
+        onClick={(e) => handleEdit(e)}
+        >Edit</button>
         <button
         onClick={(e) => handleDelete(e)}
         >Delete</button>

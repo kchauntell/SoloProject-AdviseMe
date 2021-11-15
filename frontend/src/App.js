@@ -8,6 +8,8 @@ import NoteBooksIDPage from "./components/NoteBooksIDPage";
 import CreateNotePage from './components/CreateNotePage';
 import NotesPage from "./components/NotesPage";
 import CreateNotebookPage from './components/CreateNotebookPage'
+import EditNoteBookPage from './components/EditNoteBookPage';
+import NotesEditPage from './components/NotesEditPage'
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -34,6 +36,12 @@ function App() {
           </Route>
           <Route exact path='/notes/:noteBookId'>
             <CreateNotePage />
+          </Route>
+          <Route exact path='/notebooks/:noteBookId/edit'>
+            <EditNoteBookPage />
+          </Route>
+          <Route exact path='/notes/:noteId/edit'>
+            <NotesEditPage />
           </Route>
           <Route exact path="/note/:noteId">
             <NotesPage />
