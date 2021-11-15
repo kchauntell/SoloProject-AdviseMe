@@ -9,7 +9,7 @@ Advise me is an application that mimics Evernote. This website is set out to all
 ### [Access Wiki Docs Here!](https://github.com/kchauntell/SoloProject-AdviseMe/wiki)
 
 ## Features of Website (under construction: bare bones)
-<img src='https://github.com/codenamerick/express-group-project-game-over/blob/main/public/images/Screen%20Shot%202021-10-25%20at%2010.27.45%20AM.png'>
+<img src=/>
 
 Discussion of technologies used
 Discussion of two features that show off the team's technical abilities
