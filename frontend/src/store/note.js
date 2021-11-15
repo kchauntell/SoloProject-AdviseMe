@@ -3,7 +3,7 @@ import { csrfFetch } from './csrf';
 const NOTE_LOAD = 'note/LOAD'
 const ADD_NOTE = 'note/ADD_NOTE'
 const DELETE_NOTE = 'note/DELETE_NOTE'
-// const UPDATE_NOTE = 'note/UPDATE_NOTE'
+const UPDATE_NOTE = 'note/UPDATE_NOTE'
 
 const load = (notes) => {
   return {
@@ -17,10 +17,10 @@ const addNote = (newNote) => ({
   newNote
 })
 
-// const updateNote = (noteId) => ({
-//   type: UPDATE_NOTE,
-//   noteId
-// })
+const updateNote = (noteId) => ({
+  type: UPDATE_NOTE,
+  noteId
+})
 
 const deleteNote = (noteId) => ({
   type: DELETE_NOTE,
@@ -100,15 +100,15 @@ const noteReducer = (state = initialState, action) => {
         }
       }
     }
-    // case UPDATE_NOTE: {
-    //   newState = {...newState}
-    //   newState = {
-    //     ...state,
-    //     [action.newNote.id]: action.newNote
-    //   };
-    //   newState[action.newNote.id] = action.newNote
-    //   return newState;
-    // }
+    case UPDATE_NOTE: {
+      newState = {...newState}
+      newState = {
+        ...state,
+        [action.noteId.id]: action.noteId
+      };
+      newState[action.noteId.id] = action.noteId
+      return newState;
+    }
     case DELETE_NOTE: {
       newState = {...state};
       delete newState[action.noteId];

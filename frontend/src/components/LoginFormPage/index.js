@@ -56,6 +56,9 @@ function LoginFormPage() {
         </label>
       </div>
       <button id='loginButton' type="submit">Log In</button>
+      <button
+      onClick={() => {setCredential('DemUs'); setPassword('passwordDemo')}}
+      id='demoUser' type='submit'>Sign In as DemoUser</button>
     </form>
   );
 }

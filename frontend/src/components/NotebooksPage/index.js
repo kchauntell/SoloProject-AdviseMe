@@ -19,7 +19,7 @@ function NoteBooksPage() {
 
   const [notebooks, setNotebooks] = useState('');
 
-  const handleEdit = async (e) => {
+  const handleEdit = async (notebookId, e) => {
     e.preventDefault();
 
     history.push(`/notebooks/${nbId}/edit`)

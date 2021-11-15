@@ -4,6 +4,7 @@ const LOAD = 'notebook/LOAD'
 const ADD_NOTEBOOK = 'note/ADD_NOTEBOOK'
 const DELETE_NOTE = 'note/DELETE_NOTE'
 const DELETE_NOTEBOOK = 'note/DELETE_NOTEBOOK'
+const UPDATE_NOTEBOOK = 'notebook/UPDATE_NOTEBOOK'
 // const LOAD_NOTE = 'notebook/LOAD_NOTE'
 
 const load = (notebooks) => {
@@ -12,6 +13,11 @@ const load = (notebooks) => {
     notebooks
   }
 }
+
+const updateNotebook = (notebookId) => ({
+  type: UPDATE_NOTEBOOK,
+  notebookId,
+})
 
 const deleteNotebook = (notebookId) => ({
   type: DELETE_NOTEBOOK,
@@ -92,6 +98,24 @@ const notebookReducer = (state =initialState, action) => {
         [action.newNotebook.id]: {
           ...state[action.newNotebook.id],
           ...action.newNotebook
+        }
+      }
+    }
+    case UPDATE_NOTEBOOK: {
+      newState = { ...state };
+      if (!state[action.newNotebook.id]) {
+        newState = {
+          ...state,
+          [action.notebookId.id]: action.notebookId
+        };
+        newState[action.notebookId.id] = action.notebookId
+        return newState;
+      }
+      return {
+        ...state,
+        [action.notebookId.id]: {
+          ...state[action.notebookId.id],
+          ...action.notebookId
         }
       }
     }

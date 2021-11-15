@@ -45,7 +45,7 @@ router.put('/:id(\\d+)', requireAuth, asyncHandler(async (_req, res, next) => {
   const userId = _req.user.id;
   const noteId = _req.params.id;
 
-  const { title, note, hidden, notBookId } = _req.body
+  const { title, note, hidden, noteBookId } = _req.body
 
   const changeNote = await Note.findByPk(noteId);
 
