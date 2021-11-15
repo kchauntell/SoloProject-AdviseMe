@@ -56,13 +56,14 @@ export const removeNote = (noteId) => async (dispatch) => {
 
   if (response.ok) {
     const note = await response.json();
-    dispatch(deleteNote(note.id));
+    dispatch(deleteNote(note));
   }
 }
 
 const initialState = {};
 
 const noteReducer = (state = initialState, action) => {
+  let newState;
   switch (action.type) {
     case NOTE_LOAD: {
       const allNotes = {};
@@ -77,7 +78,7 @@ const noteReducer = (state = initialState, action) => {
       }
     }
     case ADD_NOTE: {
-      let newState = {...state};
+      newState = {...state};
       if(!state[action.newNote.id]) {
         newState = {
           ...state,
@@ -95,7 +96,7 @@ const noteReducer = (state = initialState, action) => {
       }
     }
     case DELETE_NOTE: {
-      const newState = {...state};
+      newState = {...state};
       delete newState[action.noteId];
       return newState
     }

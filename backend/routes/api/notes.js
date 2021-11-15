@@ -55,15 +55,16 @@ router.put('/:id(\\d+)', asyncHandler(async (_req, res, next) => {
 }))
 
 //deleting note
-router.delete('/:id(\\d+)/delete', requireAuth, asyncHandler (async (_req, res, next) => {
+router.delete('/:id(\\d+)', requireAuth, asyncHandler (async (_req, res, next) => {
   const userId = _req.user.id;
   const noteId = _req.params.id;
 
   const note = await Note.findByPk(noteId);
 
   if (note && note.userId === userId) {
+    console.log(note);
     await note.destroy();
-    return res.json({message: `Note ${noteId} is gone gone!`});
+    res.json(note);
   } else {
     next(error)
   }

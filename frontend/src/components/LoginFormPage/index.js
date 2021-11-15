@@ -15,6 +15,7 @@ function LoginFormPage() {
     <Redirect to="/" />
   );
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);

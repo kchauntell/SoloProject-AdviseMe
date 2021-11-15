@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 const LOAD = 'notebook/LOAD'
 const ADD_NOTEBOOK = 'note/ADD_NOTEBOOK'
+const DELETE_NOTE = 'note/DELETE_NOTE'
 // const LOAD_NOTE = 'notebook/LOAD_NOTE'
 
 const load = (notebooks) => {
@@ -52,6 +53,7 @@ export const createNotebook = (data) => async (dispatch) => {
 const initialState = {}
 
 const notebookReducer = (state =initialState, action) => {
+  let newState;
   switch (action.type) {
     case LOAD: {
       const allNotebooks = {};
@@ -66,7 +68,7 @@ const notebookReducer = (state =initialState, action) => {
       }
     }
     case ADD_NOTEBOOK: {
-      let newState = { ...state };
+      newState = { ...state };
       if (!state[action.newNotebook.id]) {
         newState = {
           ...state,
@@ -82,6 +84,15 @@ const notebookReducer = (state =initialState, action) => {
           ...action.newNotebook
         }
       }
+    }
+    case DELETE_NOTE: {
+      newState = {...state};
+      // console.log(action, 'xxxxxxxxxxxxxx')
+      let notesIdx= newState[+action.noteId.noteBookId].Notes.findIndex( note => note.id === action.noteId.id)
+      // console.log(notesIdx, '00000000000')
+      newState[action.noteId.noteBookId].Notes.splice(notesIdx, 1);
+      newState[action.noteId.noteBookId].Notes = newState[action.noteId.noteBookId].Notes.slice();
+      return newState;
     }
     default:
       return state;
