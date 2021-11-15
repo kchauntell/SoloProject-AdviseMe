@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, NavLink, Route, useParams } from 'react-router-dom';
+import { BrowserRouter, NavLink, useHistory, useParams } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
+import * as noteActions from '../../store/note';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNotebook } from '../../store/notebook';
-import { removeNote} from '../../store/note';
 
 function NoteBooksIDPage() {
   const sessionUser = useSelector(state => state.session.user)
   const {notebookId} = useParams();
+  const history = useHistory();
   const dispatch = useDispatch();
   const notebook = useSelector(state => {
     // console.log(state)
@@ -16,7 +17,6 @@ function NoteBooksIDPage() {
 
   console.log(sessionUser, '*********')
   console.log(notebook, '-------')
-
 
   let buttons;
 
@@ -59,7 +59,6 @@ function NoteBooksIDPage() {
                     <p> {notes.note.slice(0, 75) + '...'}</p>
                   </div>
                   {buttons}
-
                 </div>
               )}
           })}

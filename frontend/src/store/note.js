@@ -47,6 +47,8 @@ export const createNote = (data) => async (dispatch) => {
   }
 }
 
+
+
 export const removeNote = (noteId) => async (dispatch) => {
   const response = await csrfFetch(`/api/notes/${noteId}`, {
     method: 'DELETE'
