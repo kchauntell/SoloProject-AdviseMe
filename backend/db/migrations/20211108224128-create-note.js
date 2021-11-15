@@ -16,7 +16,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(255)
       },
-      private: {
+      hidden: {
         allowNull: false,
         type: Sequelize.BOOLEAN
       },

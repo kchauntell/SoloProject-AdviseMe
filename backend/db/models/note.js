@@ -5,7 +5,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    private: {
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        len: [4, 50]
+      }
+    },
+    hidden: {
       type: DataTypes.BOOLEAN,
       allowNull: false
     },
@@ -21,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   Note.associate = function(models) {
     Note.belongsTo(models.User, {foreignKey: 'userId'});
     Note.belongsTo(models.Notebook, {foreignKey: 'noteBookId'});
-    Note.hasMany(models.Advice, {foreignKey: 'notesId'})
+    Note.hasMany(models.Advice, {foreignKey: 'notesId', onDelete: 'CASCADE', hooks: true})
   };
   return Note;
 };

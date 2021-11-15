@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         min:10
       }
     },
-    private: {
+    hidden: {
       type: DataTypes.BOOLEAN,
       allowNull: false
     },

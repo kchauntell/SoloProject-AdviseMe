@@ -1,0 +1,124 @@
+import { csrfFetch } from './csrf';
+
+const NOTE_LOAD = 'note/LOAD'
+const ADD_NOTE = 'note/ADD_NOTE'
+const DELETE_NOTE = 'note/DELETE_NOTE'
+const UPDATE_NOTE = 'note/UPDATE_NOTE'
+
+const load = (notes) => {
+  return {
+    type: NOTE_LOAD,
+    notes
+  }
+}
+
+const addNote = (newNote) => ({
+  type: ADD_NOTE,
+  newNote
+})
+
+const updateNote = (noteId) => ({
+  type: UPDATE_NOTE,
+  noteId
+})
+
+const deleteNote = (noteId) => ({
+  type: DELETE_NOTE,
+  noteId
+})
+
+
+export const getNote = () => async (dispatch) => {
+  const response = await csrfFetch(`/api/notes`);
+
+  if(response.ok) {
+    const noteList = await response.json();
+    dispatch(load(noteList));
+  }
+}
+
+export const createNote = (data) => async (dispatch) => {
+  const response = await csrfFetch(`/api/notes/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+
+  if (response.ok) {
+    const publishNote = await response.json();
+    dispatch(addNote(publishNote));
+    return publishNote;
+  }
+}
+
+// const editNote = (noteId) = async dispatch => {
+
+// }
+
+export const removeNote = (noteId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/notes/${noteId}`, {
+    method: 'DELETE'
+  });
+
+  if (response.ok) {
+    const note = await response.json();
+    dispatch(deleteNote(note));
+  }
+}
+
+const initialState = {};
+
+const noteReducer = (state = initialState, action) => {
+  let newState;
+  switch (action.type) {
+    case NOTE_LOAD: {
+      const allNotes = {};
+      action.notes.forEach((note) => {
+        // console.log(note.id);
+        allNotes[note.id]= note;
+        // console.log(allNotes);
+      });
+      return {
+        ...allNotes,
+        ...state
+      }
+    }
+    case ADD_NOTE: {
+      newState = {...state};
+      if(!state[action.newNote.id]) {
+        newState = {
+          ...state,
+          [action.newNote.id]: action.newNote
+        };
+        newState[action.newNote.id] = action.newNote
+        return newState;
+      }
+      return {
+        ...state,
+        [action.newNote.id]: {
+          ...state[action.newNote.id],
+          ...action.newNote
+        }
+      }
+    }
+    case UPDATE_NOTE: {
+      newState = {...newState}
+      newState = {
+        ...state,
+        [action.noteId.id]: action.noteId
+      };
+      newState[action.noteId.id] = action.noteId
+      return newState;
+    }
+    case DELETE_NOTE: {
+      newState = {...state};
+      delete newState[action.noteId];
+      return newState
+    }
+    default:
+    return state;
+  }
+}
+export default noteReducer

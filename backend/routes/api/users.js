@@ -2,9 +2,10 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { User, Notebook } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { response } = require('express');
 
 const router = express.Router();
 
@@ -28,6 +29,16 @@ const validateSignup = [
     .withMessage('Password must be 6 characters or more.'),
   handleValidationErrors,
 ];
+
+router.get('/', asyncHandler(async (_req, res) => {
+  const user = await User.findAll();
+  return res.json(user);
+}))
+
+router.get('/:id(\\d+)', asyncHandler( async (_req, res) => {
+  const userNotebooks = await User.findByPk(_req.params.id, {include: Notebook})
+  return res.json(userNotebooks)
+}))
 
 //Sign-Up
 router.post(
