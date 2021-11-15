@@ -24,7 +24,7 @@ function NoteEditPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     if (note === '') {
       return
     }

@@ -6,6 +6,7 @@ import { getNotebook } from '../../store/notebook';
 import './NotebooksPage.css';
 
 function NoteBooksPage() {
+  const sessionUser = useSelector(state => state.session.user)
   const dispatch = useDispatch();
   const notebook = useSelector(state => {
     let arrNotebook = Object.entries(state.notebook)
@@ -14,6 +15,17 @@ function NoteBooksPage() {
   });
 
   const [notebooks, setNotebooks] = useState('');
+
+  let buttons;
+
+  if(sessionUser) {
+    buttons = (
+      <>
+      <button>Edit NoteBook</button>
+      <button>Delete NoteBook</button>
+      </>
+    )
+  }
 
   useEffect(() => {
     dispatch(getNotebook());
@@ -47,7 +59,7 @@ function NoteBooksPage() {
                 <li>{book.genre}</li>
               </ul>
               <NavLink to={`/notebooks/${book.id}/edit`} > Edit Notebook</NavLink>
-              <button type='delete'>Delete NoteBook</button>
+              {buttons}
             </div>)
           }
         }

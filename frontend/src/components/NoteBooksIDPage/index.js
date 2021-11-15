@@ -3,14 +3,33 @@ import { BrowserRouter, NavLink, Route, useParams } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNotebook } from '../../store/notebook';
+import { removeNote} from '../../store/note';
 
 function NoteBooksIDPage() {
+  const sessionUser = useSelector(state => state.session.user)
   const {notebookId} = useParams();
   const dispatch = useDispatch();
   const notebook = useSelector(state => {
-    console.log(state)
+    // console.log(state)
     return state.notebook[notebookId]
   });
+
+  console.log(sessionUser, '*********')
+  console.log(notebook, '-------')
+
+
+  let buttons;
+
+  if(sessionUser) {
+    buttons = (
+      <>
+      <button
+      >Edit Note</button>
+      <button
+      >Delete Note</button>
+      </>
+    )
+  }
 
   useEffect(() => {
     dispatch(getNotebook());
@@ -38,11 +57,9 @@ function NoteBooksIDPage() {
                   </NavLink>
                   <div>
                     <p> {notes.note.slice(0, 75) + '...'}</p>
-                    <NavLink to={`/note/edit/${notes.id}`}>Edit</NavLink>
                   </div>
-                  <div>
-                    <button type='delete'>Delete</button>
-                  </div>
+                  {buttons}
+
                 </div>
               )}
           })}

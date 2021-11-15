@@ -13,6 +13,12 @@ router.get('/', asyncHandler(async (_req, res) => {
   return res.json(notes);
 }));
 
+router.get('/:id(\\d+)', asyncHandler(async (_req, res) => {
+  const note = await Note.findByPk(_req.params.id)
+  console.log(note);
+  return res.json(note)
+}))
+
 router.post('/', asyncHandler(async (_req, res) => {
   const {
     note,
@@ -33,4 +39,7 @@ router.post('/', asyncHandler(async (_req, res) => {
   res.json(newNote);
 }))
 
+
+//deleting note
+// router.delete('/:id(\\d+)/delete')
 module.exports = router;
