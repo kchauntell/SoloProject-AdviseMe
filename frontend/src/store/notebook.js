@@ -66,6 +66,23 @@ export const createNotebook = (data) => async (dispatch) => {
     }
   }
 
+export const editNotebook = (data) => async (dispatch) => {
+  const notebookId = data.id
+  const response = await csrfFetch(`/api/notebooks/${notebookId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+
+  if(response.ok) {
+    const updatedNotebook = await response.json();
+    dispatch(updateNotebook(data));
+    return updatedNotebook;
+  }
+}
+
 const initialState = {}
 
 const notebookReducer = (state =initialState, action) => {
@@ -102,23 +119,12 @@ const notebookReducer = (state =initialState, action) => {
       }
     }
     case UPDATE_NOTEBOOK: {
-      newState = { ...state };
-      if (!state[action.newNotebook.id]) {
-        newState = {
+      console.log(action, '999999999999');
+        return {
           ...state,
-          [action.notebookId.id]: action.notebookId
-        };
-        newState[action.notebookId.id] = action.notebookId
-        return newState;
-      }
-      return {
-        ...state,
-        [action.notebookId.id]: {
-          ...state[action.notebookId.id],
-          ...action.notebookId
+          [action.data.id]: action.data
         }
       }
-    }
     case DELETE_NOTEBOOK: {
       newState = { ...state };
       console.log(action, 'xxxxxxxxxxxxx')

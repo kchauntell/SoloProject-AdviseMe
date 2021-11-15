@@ -35,7 +35,7 @@ function EditNoteBookPage() {
       return
     }
 
-    const newNotebook = await dispatch(noteBookActions.createNotebook({ hidden, title, genre, userId: sessionUser.id }))
+    dispatch(noteBookActions.editNotebook({ hidden, title, genre }))
     history.push(`/`);
   }
 
@@ -90,7 +90,7 @@ function EditNoteBookPage() {
           </input>
         </label>
       </div>
-      <button type='submit'> Create My Notebook!</button>
+      <button type='submit'> Edit My Notebook!</button>
     </form>
   )
 }

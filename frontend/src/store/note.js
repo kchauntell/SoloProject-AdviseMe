@@ -38,7 +38,7 @@ export const getNote = () => async (dispatch) => {
 }
 
 export const createNote = (data) => async (dispatch) => {
-  const response = await csrfFetch(`/api/notes`, {
+  const response = await csrfFetch(`/api/notes/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -53,6 +53,9 @@ export const createNote = (data) => async (dispatch) => {
   }
 }
 
+// const editNote = (noteId) = async dispatch => {
+
+// }
 
 export const removeNote = (noteId) => async (dispatch) => {
   const response = await csrfFetch(`/api/notes/${noteId}`, {
