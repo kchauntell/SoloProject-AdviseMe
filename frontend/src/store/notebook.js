@@ -66,20 +66,20 @@ export const createNotebook = (data) => async (dispatch) => {
     }
   }
 
-export const editNotebook = (data) => async (dispatch) => {
-  const notebookId = data.id
+export const editNotebook = (notebook) => async (dispatch) => {
+  const notebookId = notebook.notebookId
   const response = await csrfFetch(`/api/notebooks/${notebookId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(notebookId)
   })
 
   if(response.ok) {
-    const updatedNotebook = await response.json();
-    dispatch(updateNotebook(data));
-    return updatedNotebook;
+    const data = await response.json();
+    await dispatch(addNotebook(data.notebook));
+    return data;
   }
 }
 
