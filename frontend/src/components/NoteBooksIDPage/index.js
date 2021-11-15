@@ -8,6 +8,7 @@ function NoteBooksIDPage() {
   const {notebookId} = useParams();
   const dispatch = useDispatch();
   const notebook = useSelector(state => {
+    console.log(state)
     return state.notebook[notebookId]
   });
 
@@ -37,7 +38,7 @@ function NoteBooksIDPage() {
                   </NavLink>
                   <div>
                     <p> {notes.note.slice(0, 75) + '...'}</p>
-                    <NavLink to={`/notes/edit/${notes.id}`}>Edit</NavLink>
+                    <NavLink to={`/note/edit/${notes.id}`}>Edit</NavLink>
                   </div>
                   <div>
                     <button type='delete'>Delete</button>

@@ -8,10 +8,11 @@ function NotesPage() {
   const {noteId} = useParams();
   const dispatch = useDispatch();
   const note = useSelector(state => {
+    // console.log(state.note);
     return state.note[noteId]
   });
 
-  console.log(note.title, '*******');
+  console.log(note, '*******');
 
   useEffect(() => {
     dispatch(getNote());
@@ -21,7 +22,9 @@ function NotesPage() {
 
   return (
     <div>
-      <h1>Testing</h1>
+      <h1>{note.title}</h1>
+      <p>{note.note}</p>
+      <NavLink to={`/note/edit/${note.id}`}>Edit</NavLink>
     </div>
   )
 }
